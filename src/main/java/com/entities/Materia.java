@@ -1,4 +1,4 @@
-package com.Enti;
+package com.entities;
 
 import jakarta.persistence.*;
 
@@ -13,9 +13,8 @@ public class Materia {
     @Column(nullable = false)
     private String nombre;
 
-    // Nota numérica, puedes ajustar a int/float según tu criterio
     @Column(nullable = false)
-    private Double nota;
+    private float nota;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estudiante_id")
@@ -24,7 +23,7 @@ public class Materia {
     public Materia() {
     }
 
-    public Materia(String nombre, Double nota) {
+    public Materia(String nombre, Float nota) {
         this.nombre = nombre;
         this.nota = nota;
     }
@@ -39,7 +38,7 @@ public class Materia {
         return nombre;
     }
 
-    public Double getNota() {
+    public Float getNota() {
         return nota;
     }
 
@@ -51,7 +50,7 @@ public class Materia {
         this.nombre = nombre;
     }
 
-    public void setNota(Double nota) {
+    public void setNota(Float nota) {
         this.nota = nota;
     }
 
