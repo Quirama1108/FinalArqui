@@ -40,6 +40,4 @@ public class EstudianteController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
-        }
-    }
 }
