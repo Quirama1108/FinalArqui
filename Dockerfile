@@ -1,31 +1,19 @@
-# =============================================================
-# Etapa 1: Construcción del proyecto usando Maven
-# =============================================================
-FROM maven:3.9.4-eclipse-temurin-17 AS build
-
-# Crear carpeta para el proyecto
+# Etapa 1: Construcción
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 WORKDIR /app
 
+COPY pom.xml .
+RUN mvn -e -B dependency:go-offline
 
-COPY . .
+COPY src ./src
+RUN mvn -e -B clean package -DskipTests
 
-# Construir el proyecto y empaquetar el JAR, omitiendo los tests
-RUN mvn clean package -DskipTests
-
-
-# =============================================================
-# Etapa 2: Imagen final (solo JAR)
-# =============================================================
-FROM eclipse-temurin:17
-
-# Carpeta donde vivirá el JAR
+# Etapa 2: Imagen final
+FROM eclipse-temurin:17-jdk
 WORKDIR /app
 
-# Copiar el jar generado desde la etapa build
 COPY --from=build /app/target/*.jar app.jar
 
-# Exponer el puerto que usa Spring Boot
 EXPOSE 8080
 
-# Comando para ejecutar la aplicación
 ENTRYPOINT ["java", "-jar", "app.jar"]
