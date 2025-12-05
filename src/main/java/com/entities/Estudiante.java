@@ -1,4 +1,4 @@
-package com.Enti;
+package com.entities;
 
 import jakarta.persistence.*;
 import java.util.ArrayList;
