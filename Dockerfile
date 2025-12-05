@@ -6,10 +6,10 @@ FROM maven:3.9.4-eclipse-temurin-17 AS build
 # Crear carpeta para el proyecto
 WORKDIR /app
 
-# Copiar todo el código fuente
+
 COPY . .
 
-# Compilar y empaquetar el proyecto (ignorar tests para acelerar)
+# Construir el proyecto y empaquetar el JAR, omitiendo los tests
 RUN mvn clean package -DskipTests
 
 
